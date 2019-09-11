@@ -16,7 +16,11 @@ int endcond;
 //equals 1 if player goes first 2 if player goes second
 int fOrs;
 
+int cont;
 
+/**
+ * game initializer
+ */
 void initializegame(){
 	for(int i=0; i<3; i++){
 		board[i][0] = "   ";
@@ -25,6 +29,8 @@ void initializegame(){
 	}
 	currentPlayer = " X ";
 	endcond = 0;
+	cont = 0;
+	gameType = 0;
 }
 
 /**
@@ -287,39 +293,42 @@ void twoplayer(){
  */
 int main() {
 
-	initializegame();
+
 
 	std::cout << "WELCOME TO TIC-TAC-TOE" << std::endl;
 	std::cout << "This terminal game was made by Michael Spagna" << std::endl;
+	do {
+		while (gameType != 1 && gameType != 2) {
 
-	while(gameType!=1 && gameType!=2){
+			std::cout << "Enter 1 for single player or 2 for two player" << std::endl;
+			std::cin >> gameType;
+		}
+		initializegame();
+		if (gameType == 1) {
 
-		std::cout << "Enter 1 for single player or 2 for two player" << std::endl;
-		std::cin >> gameType;
-	}
+			singleplayer();
 
-	if(gameType==1){
+		} else if (gameType == 2) {
 
-		singleplayer();
+			twoplayer();
 
-	}else if(gameType==2){
+		}
 
-		twoplayer();
+		if (endcond == 1) {
 
-	}
+			swapplayer();
+			printboard();
+			std::cout << currentPlayer << "WINS!!!!" << std::endl;
 
-	if(endcond==1){
+		} else {
 
-		swapplayer();
-		printboard();
-		std::cout << currentPlayer << "WINS!!!!" << std::endl;
+			printboard();
+			std::cout << "CAT'S GAME." << std::endl;
 
-	}else{
-
-		printboard();
-		std::cout << "CAT'S GAME." <<std::endl;
-
-	}
+		}
+		std::cout << "Press 1 to play again or 0 to exit" << std::endl;
+		std::cin >> cont;
+	}while(cont!=0);
 
 	return 0;
 }
