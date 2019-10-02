@@ -37,7 +37,7 @@ void initializegame(){
  * Method prints out the current state of the game board;
  */
 void printboard(){
-
+	std::cout << std::endl;
 	for(int i=0; i<3; i++){
 
 		std::cout << board[i][0] << '|' << board[i][1] << '|' << board[i][2] << std::endl;
@@ -140,23 +140,14 @@ int catsgame(){
 	int cat(0);
 
 	for(int i=0; i<3; i++){
-
 		for(int j=0; j<3; j++){
-
 			if(board[i][j]!="   "){
-
-				cat++;
-
+				++cat;
 			}
-
 		}
-
 	}
-
 	if(cat==9){
-
 		endcond = 2;
-
 	}
 
 	return endcond;
@@ -209,25 +200,15 @@ int makemove(int x, int y, int pOc){
  */
 void compmove(){
 
-	int x, y, corner(0);
-
+	int x, y, i, corner(0);
+	int c[] =  {0,2};
 	do{
 
-		if(corner < 2 && makemove(0,0,0)){
-				x = 0;
-				y = 0;
-				++corner;
-		}else if(corner < 2 && makemove(2,0,0)){
-				x = 2;
-				y = 0;
-				++corner;
-		}else if(corner < 2 && makemove(0,2,0)){
-			x = 0;
-			y = 2;
-			++corner;
-		}else if(corner < 2 && makemove(2,2,0)){
-			x = 2;
-			y = 2;
+		if(corner < 1){
+			i = std::rand() % 2;
+			x = c[i];
+			i = std::rand() % 2;
+			y = c[i];
 			++corner;
 		}else{
 			x = std::rand() % 3;
@@ -315,17 +296,16 @@ void twoplayer(){
  */
 int main() {
 
-
-
-	std::cout << "WELCOME TO TIC-TAC-TOE" << std::endl;
+	std::cout << "\nWELCOME TO TIC-TAC-TOE" << std::endl;
 	std::cout << "This terminal game was made by Michael Spagna" << std::endl;
 	do {
+		initializegame();
 		while (gameType != 1 && gameType != 2) {
 
-			std::cout << "Enter 1 for single player or 2 for two player" << std::endl;
+			std::cout << "Enter 1 for single player or 2 for two player\n" << std::endl;
 			std::cin >> gameType;
 		}
-		initializegame();
+
 		if (gameType == 1) {
 
 			singleplayer();
